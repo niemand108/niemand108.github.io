@@ -1,0 +1,80 @@
+<html>
+    <head>
+        <title>Sliding Turns</title>
+        <script src="misc.js"></script>
+        <script src="dics.min.js"></script>
+        <link rel="stylesheet" href="dics.min.css">
+        <style>
+            body {
+                background-color: black;
+                
+            }
+            .tobody {
+                max-width: 100%;
+                height: 100vh;
+                margin-bottom: 100px;
+            }
+            .titlerace {
+                color: white;
+                font-size: xx-large;
+            }
+            .description {
+                color: white;
+                font-size: medium;
+            }
+
+            .slide_desc {
+                color: white;
+                font-size: small;
+            }
+
+        </style>
+    </head>
+    <body>
+        <h1 id="title_race" class="titlerace"></h1>
+        <h4 id="desc_race" class="description"></h4>
+        <h5 class="slide_desc">Slide to compare.</h5>
+        <div id="imgs"></div>
+        <script>
+            var title_race = document.getElementById("title_race");
+            var title_to_add = document.createTextNode(name_circuit + " - " + number_season);
+            title_race.appendChild(title_to_add);
+            var pilots = "";
+            for(let j = 0; j < drivers_misc.length; j++){ 
+                pilots += drivers_misc[j];
+                if (j < drivers_misc.length-1){
+                    pilots += ", ";
+                }
+            }
+            var desc_race = document.getElementById("desc_race");
+            title_to_add = document.createTextNode(pilots);
+            desc_race.appendChild(title_to_add);
+        </script>
+        <script>
+            var shit = "";
+            var inner_shit = "";
+            const result = document.getElementById('imgs');
+            for(let i = 0; i < turns_misc.length; i++){ 
+                shit += "<div class='b-dics tobody' alt='"+turns_misc[i]+"'>"
+                for(let j = 0; j < drivers_misc.length; j++){ 
+                    shit += "<img src='" + drivers_misc[j] + "/" +turns_misc[i]+ ".png'/>";
+                }
+                shit += "</div>"
+                inner_shit += shit
+
+                shit = "";
+            }
+            result.innerHTML = inner_shit;
+
+
+            all_bdics = document.querySelectorAll('.b-dics');
+            for(let i = 0; i < all_bdics.length; i++){ 
+                new Dics({
+                    container: all_bdics[i]
+                });
+            }
+
+        </script>
+
+    </body>
+</html>

@@ -1,0 +1,167 @@
+<html>
+    <head>
+        <title>Gif-ing Turns</title>
+        <script src="misc.js"></script>
+        <script>
+            var excluded_pilot = drivers_misc.length-1;
+            var speed_g = 700;
+            function changespeed(input){
+                speed_g = input.value;
+            }
+
+            function get_clean_id(id_to_clean){
+                return id_to_clean.replace(/[,-]/g, '');
+            }
+
+            function checkone(input){
+                clearTimeout(giftimeout)
+                var checkboxes = document.getElementsByClassName("pilotsgroup");
+                for(var i = 0; i < checkboxes.length; i++){
+                    if(checkboxes[i].checked == true)
+                        checkboxes[i].checked = false;
+                }
+
+                if(input.checked == true)
+                    input.checked = false;
+                else
+                    input.checked = true;
+                excluded_pilot = input.value
+                imgs_gif = createImgs()
+                next_idx = next_idx_(0, excluded_pilot)
+                
+                giftimeout = setTimeout(animated_curve, speed_g);
+            }
+
+            function createImgs(){
+                var imgs_gif_r = new Array();
+                var imgs_div_r = document.createElement('div');
+                var ex_imgs_div = document.getElementById("imgs");
+                imgs_div_r.id = "imgs"
+                while (ex_imgs_div.firstChild) {
+                    ex_imgs_div.removeChild(ex_imgs_div.firstChild);
+                }
+                for(let i = 0; i < turns_misc.length; i++){ 
+                    imgs_gif_r.push(new Array())
+                    first_img = true
+                    for(let j = 0; j < drivers_misc.length; j++){ 
+                        var newImg = document.createElement('img');
+                        newImg.id = get_clean_id(turns_misc[i])
+                        newImg.src = drivers_misc[j] + "/" +turns_misc[i]+ ".png";
+                        if (j != excluded_pilot && first_img){
+                            imgs_div_r.appendChild(newImg);
+                            first_img = false;
+                        }
+                        imgs_gif_r[i].push(newImg);
+                    }
+                }
+                document.body.replaceChild(imgs_div_r, ex_imgs_div);  
+                return imgs_gif_r;
+            }
+        </script>
+        <style>
+            body {
+                background-color: black;
+                
+            }
+            .tobody {
+                max-width: 100%;
+                height: 100vh;
+                margin-bottom: 100px;
+            }
+            .titlerace {
+                color: white;
+                font-size: xx-large;
+            }
+            .description {
+                color: white;
+                font-size: medium;
+            }
+            .gif_desc {
+                color: white;
+                font-size: small;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 id="title_race" class="titlerace"></h1>
+        <h4 id="desc_race" class="description"></h4>
+        <div class="gif_desc">
+            <div>
+                <label for="speedtrans">Transition(gif) speed:</label>
+                <input min="100" type="number" id="speed_trans_" value="700" step="100" onchange="changespeed(this);">
+            </div>
+            <label for="excludeone">Exclude one pilot:</label>
+            <div id="checkbox_pilot"></div>
+            
+            <script>
+            document.getElementById("speed_trans_").value = speed_g
+            var innerinfo = "";
+
+            for(let j = 0; j < drivers_misc.length; j++){ 
+
+                innerinfo += "<input onclick='checkone(this);' class='pilotsgroup' type='checkbox' id='pilot"+j+"' value='"+j+"'"
+                if (j>=drivers_misc.length-1)
+                    innerinfo += "checked";
+                innerinfo +=" > <label for='"+drivers_misc[j]+"'> "+drivers_misc[j]+"</label>";
+            }
+
+            const checboxelem = document.getElementById('checkbox_pilot');
+            checboxelem.innerHTML = innerinfo;
+            </script>
+
+        </div>
+
+        <div id="imgs"></div>
+        <script>
+            var title_race = document.getElementById("title_race");
+            var title_to_add = document.createTextNode(name_circuit + " - " + number_season);
+            title_race.appendChild(title_to_add);
+            var pilots = "";
+            for(let j = 0; j < drivers_misc.length; j++){ 
+                pilots += drivers_misc[j];
+                if (j < drivers_misc.length-1){
+                    pilots += ", ";
+                }
+            }
+            var desc_race = document.getElementById("desc_race");
+            title_to_add = document.createTextNode(pilots);
+            desc_race.appendChild(title_to_add);
+        </script>
+
+        <script>
+            var imgs_gif = createImgs()
+            next_idx = next_idx_(0, excluded_pilot)
+            function next_idx_(next, exclude){
+                t = next
+                if (t < drivers_misc.length-1){
+                    t = t + 1;
+                } else {
+                    t = 0;
+                }
+                if (t == exclude)
+                    return next_idx_(t, exclude)
+                return t
+            }
+            
+            document.getElementById("speed_trans_")
+            function animated_curve() {
+                var excl = excluded_pilot;
+                var imgs_div_t = document.getElementById("imgs");
+                var next_idx_t = next_idx
+                var imgs_gif_t = imgs_gif.slice();
+                for(let c = 0; c < turns_misc.length; c++){ 
+                    curveid = get_clean_id(turns_misc[c])
+                    old = document.getElementById(curveid);
+                    imgs_div_t.replaceChild(imgs_gif_t[c][next_idx_t], old);        
+                }
+                
+                if (excl == excluded_pilot) {
+                    next_idx = next_idx_(next_idx_t, excl)
+                    giftimeout = setTimeout(animated_curve, speed_g);
+                }
+            }
+            var giftimeout = setTimeout(animated_curve, speed_g);
+
+        </script>
+    </body>
+</html>
