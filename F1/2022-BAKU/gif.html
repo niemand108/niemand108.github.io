@@ -18,7 +18,7 @@
     <script>
         document.title = name_circuit + " circuit turns - Season " + number_season + " F1";
         var excluded_pilot = drivers_misc.length - 1;
-        var speed_g = 700;
+        var speed_g = 1200;
         function changespeed(input) {
             speed_g = input.value;
         }
@@ -121,7 +121,7 @@
     <div class="gif_desc">
         <div>
             <label for="speedtrans">Transition(gif) speed:</label>
-            <input min="100" type="number" id="speed_trans_" value="700" step="100" onchange="changespeed(this);">
+            <input min="100" type="number" id="speed_trans_" value="1200" step="100" onchange="changespeed(this);">
         </div>
         <label for="excludeone">Exclude one pilot:</label>
         <div id="checkbox_pilot"></div>
