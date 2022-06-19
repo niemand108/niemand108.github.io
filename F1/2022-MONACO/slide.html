@@ -11,6 +11,7 @@
         </script>
         <script src="misc.js"></script>
         <script src="dics.min.js"></script>
+        <script>document.title = name_circuit+" circuit turns - Season " + number_season+" F1";</script>
         <link rel="stylesheet" href="dics.min.css">
         <style>
             body {
@@ -71,9 +72,9 @@
             var inner_shit = "";
             const result = document.getElementById('imgs');
             for(let i = 0; i < turns_misc.length; i++){ 
-                shit += "<div class='b-dics tobody' alt='"+turns_misc[i]+"'>"
+                shit += "<div class='b-dics tobody' alt='Turn "+turns_misc[i]+" "+name_circuit+" "+number_season+"'>"
                 for(let j = 0; j < drivers_misc.length; j++){ 
-                    shit += "<img src='" + drivers_misc[j] + "/" +turns_misc[i]+ ".png'/>";
+                    shit += "<img alt='"+ drivers_misc[j]+"' src='" + drivers_misc[j] + "/" +turns_misc[i]+ ".png'/>";
                 }
                 shit += "</div>"
                 inner_shit += shit

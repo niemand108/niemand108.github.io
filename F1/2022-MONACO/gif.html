@@ -11,6 +11,7 @@
         </script>
         <script src="misc.js"></script>
         <script>
+            document.title = name_circuit+" circuit turns - Season " + number_season+" F1";
             var excluded_pilot = drivers_misc.length-1;
             var speed_g = 700;
             function changespeed(input){
@@ -55,6 +56,7 @@
                         var newImg = document.createElement('img');
                         newImg.id = get_clean_id(turns_misc[i])
                         newImg.src = drivers_misc[j] + "/" +turns_misc[i]+ ".png";
+                        newImg.alt= "Turn "+turns_misc[i]+" "+name_circuit+" "+number_season
                         if (j != excluded_pilot && first_img){
                             imgs_div_r.appendChild(newImg);
                             first_img = false;

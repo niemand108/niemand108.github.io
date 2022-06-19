@@ -1,8 +1,17 @@
 <html>
     <head>
         <title>Sliding Turns</title>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-T7GMZKGH74"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-T7GMZKGH74');
+        </script>
         <script src="misc.js"></script>
         <script src="dics.min.js"></script>
+        <script>document.title = name_circuit+" circuit turns - Season " + number_season+" F1";</script>
         <link rel="stylesheet" href="dics.min.css">
         <style>
             body {
@@ -29,18 +38,18 @@
             }
 
         </style>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-T7GMZKGH74"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-        
-          gtag('config', 'G-T7GMZKGH74');
-        </script>
     </head>
     <body>
         <h1 id="title_race" class="titlerace"></h1>
-        <h4 id="desc_race" class="description"></h4>
+        <table>
+            <tr>
+              <td>
+
+                <h4 id="desc_race" class="description"></h4>
+              </td>
+              <td><img src="compunds.png"/></td>
+            </tr>
+          </table>
         <h5 class="slide_desc">Slide to compare.</h5>
         <div id="imgs"></div>
         <script>
@@ -63,9 +72,9 @@
             var inner_shit = "";
             const result = document.getElementById('imgs');
             for(let i = 0; i < turns_misc.length; i++){ 
-                shit += "<div class='b-dics tobody' alt='"+turns_misc[i]+"'>"
+                shit += "<div class='b-dics tobody' alt='Turn "+turns_misc[i]+" "+name_circuit+" "+number_season+"'>"
                 for(let j = 0; j < drivers_misc.length; j++){ 
-                    shit += "<img src='" + drivers_misc[j] + "/" +turns_misc[i]+ ".png'/>";
+                    shit += "<img alt='"+ drivers_misc[j]+"' src='" + drivers_misc[j] + "/" +turns_misc[i]+ ".png'/>";
                 }
                 shit += "</div>"
                 inner_shit += shit
